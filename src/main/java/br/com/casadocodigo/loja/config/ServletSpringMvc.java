@@ -16,7 +16,7 @@ public class ServletSpringMvc extends AbstractAnnotationConfigDispatcherServletI
 	@Override
 	protected Class<?>[] getRootConfigClasses() {
 		return new Class[]{SecurityConfiguration.class,
-				AppWebConfiguration.class,JPAConfiguration.class};
+				AppWebConfiguration.class,JPAConfiguration.class,JPAProductionConfiguration.class};
 	}
 
 	@Override
@@ -43,12 +43,12 @@ public class ServletSpringMvc extends AbstractAnnotationConfigDispatcherServletI
         registration.setMultipartConfig(new MultipartConfigElement(""));
     }
     
-    @Override
+   /* @Override
     public void onStartup(ServletContext servletContext) throws ServletException {
     	super.onStartup(servletContext);
     	servletContext.addListener(RequestContextListener.class);
     	servletContext.setInitParameter("spring.profiles.active", "dev");
-    }
+    }*/
     
     
 }
