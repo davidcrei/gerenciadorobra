@@ -25,8 +25,9 @@ public class ObraController {
 		//obra.setNome("G2O");
 		ModelAndView modelAndView =  new ModelAndView("cadastro/obra");
 		modelAndView.addObject("obra", obra);
+		int pagina = 1;
+		List<Obra> obras  = obraDao.findListaPaginada(pagina);
 		
-		List<Obra> obras  = obraDao.findAll();
 		modelAndView.addObject("obras", obras);
 		return modelAndView;
 	}
