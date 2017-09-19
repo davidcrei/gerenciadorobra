@@ -38,8 +38,6 @@ public class ObraDao {
 		query2 = manager.createQuery(sbQuery.toString());
 		Long count = (Long)query2.getSingleResult();
 
-
-
 		StringBuilder sbQuery2 = new StringBuilder();
 		Query query = null;
 		int maxRecords = 3;
