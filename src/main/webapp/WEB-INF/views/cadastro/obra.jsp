@@ -124,32 +124,31 @@
   </table>
 </div>
 
-<div class="container">
- 
-  
-  <ul class="pagination pagination-lg">
-  <li class="page-item">
-      <a class="page-link" href="#" aria-label="Previous">
-        <span aria-hidden="true">&laquo;</span>
-        <span class="sr-only">Previous</span>
-      </a>
-    </li>
-    
-    <c:forEach items="${listaPaginacao}" var="item">
-    	
-    <li><a href="#">${item}</a></li>
-    
-  </c:forEach>
-  
-    <li class="page-item">
-      <a class="page-link" href="#" aria-label="Next">
-        <span aria-hidden="true">&raquo;</span>
-        <span class="sr-only">Next</span>
-      </a>
-    </li>
-  </ul>
-	</div>
-	</tags:pageTemplate>
+<div class="container" align="center">
+	<ul class="pagination pagination-lg">
+	  	<li class="page-item">
+	      <a class="page-link" href="#" aria-label="Previous">
+	        <span aria-hidden="true">&laquo;</span>
+	        <span class="sr-only">Previous</span>
+	      </a>
+	    </li>
+	    
+	    <c:forEach items="${listaPaginacao}" var="item">
+		   <li>
+		     <a href="${s:mvcUrl('OC#listar').arg(0,item).build() }">${item}</a>
+		   </li>
+	    </c:forEach>
+	  
+	    <li class="page-item">
+	      <a class="page-link" href="#" aria-label="Next">
+	        <span aria-hidden="true">&raquo;</span>
+	        <span class="sr-only">Next</span>
+	      </a>
+	    </li>
+   </ul>
+</div>
+
+</tags:pageTemplate>
 
 
 </body>

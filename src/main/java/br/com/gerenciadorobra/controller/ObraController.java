@@ -15,51 +15,58 @@ import br.com.gerenciadorobra.models.Obra;
 @RequestMapping("/cadastro")
 @Controller
 public class ObraController {
-	
-	@Autowired
-    private ObraDao obraDao;
 
-	
+	@Autowired
+	private ObraDao obraDao;
+
+
 	@RequestMapping(value="/listar", method=RequestMethod.GET)
-	public ModelAndView listar() {
+	public ModelAndView listar(Integer paginaAtual) {
 		Obra obra = new Obra();
 		//obra.setNome("G2O");
+
+		if(paginaAtual == null) {
+			paginaAtual = 1;
+		}
+
+		ArrayList<Integer> paginacao = listaPaginacao(obraDao); 
+		List<Obra> obras  = obraDao.findListaPaginada(paginaAtual);
+
 		ModelAndView modelAndView =  new ModelAndView("cadastro/obra");
 		modelAndView.addObject("obra", obra);
-		
-		
-		 List<Obra> listaObra = obraDao.findAll();
-		 int numPag = listaObra.size() / 3;
-		
-		 if(numPag <= 0) {
-			 numPag = 1;
-		 }
-		 
-		 ArrayList<Integer> listaPaginacao = new ArrayList<>();
-		 for(int i=0;i <= numPag;i++) {
-			 listaPaginacao.add(i+1); 
-		 }
-		 
-		List<Obra> obras  = obraDao.findListaPaginada(numPag);
-				
-		modelAndView.addObject("listaPaginacao", listaPaginacao);
+		modelAndView.addObject("listaPaginacao", paginacao);
 		modelAndView.addObject("obras", obras);
+
 		return modelAndView;
 	}
-	
-	
+
+
 	@RequestMapping(value="/gravar", method=RequestMethod.POST)
 	public ModelAndView gravar(Obra obra) {
 		obra.setId(null);
 		obraDao.gravar(obra);
 		ModelAndView modelAndView =  new ModelAndView("cadastro/obra");
-		
+
 		List<Obra> obras  = obraDao.findAll();
-		
+
 		modelAndView.addObject("obras", obras);
 		modelAndView.addObject("obra",new Obra());
 		return modelAndView;
 	}
-	
+
+	public ArrayList<Integer> listaPaginacao(ObraDao obraDao){
+		List<Obra> listaObra = obraDao.findAll();
+		int numPag = listaObra.size() / 3;
+
+		if(numPag <= 0) {
+			numPag = 1;
+		}
+
+		ArrayList<Integer> listaPaginacao = new ArrayList<>();
+		for(int i=0;i <= numPag;i++) {
+			listaPaginacao.add(i+1); 
+		}
+		return  listaPaginacao;
+	}
 
 }
