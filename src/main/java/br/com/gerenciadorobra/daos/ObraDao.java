@@ -29,7 +29,7 @@ public class ObraDao {
 		return obraList;
 	}
 
-	public List<Obra> findListaPaginada(int numPagina) {
+	public List<Obra> findListaPaginada(int paginaAtual) {
 		StringBuilder sbQuery = new StringBuilder();
 		Query query2 = null;
 		sbQuery.append("select count(*) from Obra");
@@ -55,7 +55,7 @@ public class ObraDao {
 
 		query = manager.createQuery(sbQuery2.toString());
 
-		int registroInicial =  numPagina * maxRecords;
+		int registroInicial =  (paginaAtual-1) * maxRecords;
 		query.setFirstResult(registroInicial);
 		/*Esta linha indica quantos registros serão recuperados a partir do primeiro*/
 		query.setMaxResults(maxRecords);
