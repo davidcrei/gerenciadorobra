@@ -57,18 +57,31 @@
     	 
     	 setaMascara(dataInicio,MASK_DATA); 
     	 setaMascara(dataFim,MASK_DATA); 
+    		
      });
+   
   </script>
-	 
-
 </head>
+
+<script>
+  function popularcampos(id,nom,cnp,datIni,datFim){
+    		with (document.forms[0]) {
+    			 $("#nome").val(nom);
+    			 $("#cnpj").val(cnp);
+    			 $("#dataInicio").val(datIni);
+    			 $("#dataFim").val(datFim);
+    		}
+
+     }
+  
+</script>
 <body>
 
 <div class="container">
 		<form:form action="${s:mvcUrl('OC#gravar').build()}" method="POST" commandName="obra" enctype="multipart/form-data">	
 			<div class="form-group">
 				<label>Nome</label>
-				<form:input rows="1" path="nome" cssClass="form-control" size="50%"/>
+				<form:input rows="1" path="nome" cssClass="form-control" size="50%" id="nome"/>
 		   </div>
 		   <div class="form-group">
 					<label>CNPJ</label>
@@ -111,12 +124,13 @@
      <c:forEach items="${obras}" var="obra">
             
       <tr>
-        <td>${obra.nome}</td>
-        <td>${obra.cnpj}</td>
-        <td>
-        <fmt:formatDate value="${obra.dataInicio.time}" pattern="dd/MM/yyyy"/>
-        </td>
-        <td><fmt:formatDate value="${obra.dataFim.time}" pattern="dd/MM/yyyy"/></td>
+       
+        <td><a href="javascript:popularcampos(${obra.id},'${obra.nome}','${obra.cnpj}','<fmt:formatDate  value="${obra.dataInicio.time}" pattern="dd/MM/yyyy"/>','<fmt:formatDate value="${obra.dataFim.time}"  pattern="dd/MM/yyyy"/>');"> ${obra.nome}</a> </td>
+        <td><a href="javascript:popularcampos(${obra.id},'${obra.nome}','${obra.cnpj}','<fmt:formatDate value="${obra.dataInicio.time}" pattern="dd/MM/yyyy"/>','<fmt:formatDate value="${obra.dataFim.time}"   pattern="dd/MM/yyyy"/>');">${obra.cnpj}</a> </td>
+        <td><a href="javascript:popularcampos(${obra.id},'${obra.nome}','${obra.cnpj}','<fmt:formatDate  value="${obra.dataInicio.time}" pattern="dd/MM/yyyy"/>','<fmt:formatDate value="${obra.dataFim.time}"  pattern="dd/MM/yyyy"/>');"><fmt:formatDate value="${obra.dataInicio.time}" pattern="dd/MM/yyyy"/></a> </td>
+        <td><a href="javascript:popularcampos(${obra.id},'${obra.nome}','${obra.cnpj}','<fmt:formatDate  value="${obra.dataInicio.time}" pattern="dd/MM/yyyy"/>','<fmt:formatDate value="${obra.dataFim.time}"  pattern="dd/MM/yyyy"/>');"><fmt:formatDate value="${obra.dataFim.time}" pattern="dd/MM/yyyy"/></a></td>
+               
+        
       </tr>
      </c:forEach> 
           
