@@ -62,5 +62,13 @@ public class ObraDao {
 		List list = query.getResultList();	
 		return list;
 	}
-
+	
+	public void atualizar(Obra obra) {
+		manager.merge(obra);
+	}
+	
+	public void excluir(Obra obra) {
+		manager.remove(obra);
+	}
+	
 }

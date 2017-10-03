@@ -54,6 +54,29 @@ public class ObraController {
 		return modelAndView;
 	}
 
+		
+	@RequestMapping(value="/atualizar", method=RequestMethod.POST)
+	public ModelAndView atualizar(Obra obra) {
+
+		obraDao.atualizar(obra);
+		listar(null);
+		ModelAndView modelAndView =  new ModelAndView("cadastro/obra");
+
+		return modelAndView;
+	}	
+	
+	
+	@RequestMapping(value="/excluir", method=RequestMethod.POST)
+	public ModelAndView excluir(Obra obra) {
+
+		obraDao.atualizar(obra);
+		listar(null);
+		ModelAndView modelAndView =  new ModelAndView("cadastro/obra");
+
+		return modelAndView;
+	}	
+	
+	
 	public ArrayList<Integer> listaPaginacao(ObraDao obraDao){
 		List<Obra> listaObra = obraDao.findAll();
 		int numPag = listaObra.size() / 3;
