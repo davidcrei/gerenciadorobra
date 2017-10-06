@@ -3,8 +3,13 @@ package br.com.gerenciadorobra.controller;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.BindingResultUtils;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
@@ -42,37 +47,34 @@ public class ObraController {
 
 
 	@RequestMapping(value="/gravar", method=RequestMethod.POST)
-	public ModelAndView gravar(Obra obra) {
-		obra.setId(null);
+	public ModelAndView gravar(@Valid Obra obra, BindingResult result) {
+		//obra.setId(null);
+		ModelAndView modelAndView = listar(null);
+		if(result.hasErrors()) {
+			return modelAndView;
+		}
 		obraDao.gravar(obra);
-		ModelAndView modelAndView =  new ModelAndView("cadastro/obra");
-
-		List<Obra> obras  = obraDao.findAll();
-
-		modelAndView.addObject("obras", obras);
-		modelAndView.addObject("obra",new Obra());
+		
 		return modelAndView;
+		
 	}
 
 		
-	@RequestMapping(value="/atualizar", method=RequestMethod.POST)
+	@RequestMapping(value="/atualizar", method=RequestMethod.GET)
 	public ModelAndView atualizar(Obra obra) {
 
 		obraDao.atualizar(obra);
-		listar(null);
-		ModelAndView modelAndView =  new ModelAndView("cadastro/obra");
+		ModelAndView modelAndView = listar(null);
 
 		return modelAndView;
 	}	
 	
 	
-	@RequestMapping(value="/excluir", method=RequestMethod.POST)
-	public ModelAndView excluir(Obra obra) {
-
-		obraDao.atualizar(obra);
-		listar(null);
-		ModelAndView modelAndView =  new ModelAndView("cadastro/obra");
-
+	@RequestMapping(value="/excluir/{id}", method=RequestMethod.GET)
+	public ModelAndView excluir(@PathVariable("id") Integer id) {
+		Obra obra = obraDao.buscaPorChavePrimaria(id);
+		obraDao.excluir(obra);
+		ModelAndView modelAndView =  listar(1);
 		return modelAndView;
 	}	
 	

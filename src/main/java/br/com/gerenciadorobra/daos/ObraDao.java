@@ -19,7 +19,7 @@ public class ObraDao {
 	private EntityManager manager;
 
 	public void gravar(Obra obra) {
-		manager.persist(obra);
+		manager.merge(obra);
 	}
 
 	@SuppressWarnings("unchecked")
@@ -68,7 +68,12 @@ public class ObraDao {
 	}
 	
 	public void excluir(Obra obra) {
-		manager.remove(obra);
+        manager.remove(obra);
+    }
+	
+	public Obra buscaPorChavePrimaria(Integer idObra) {
+		Obra obra =  manager.find(Obra.class, idObra);
+		return obra;
 	}
 	
 }

@@ -64,8 +64,9 @@
 </head>
 
 <script>
-  function popularcampos(id,nom,cnp,datIni,datFim){
+  function popularcampos(i,nom,cnp,datIni,datFim){
     		with (document.forms[0]) {
+    			 $("#id").val(i);
     			 $("#nome").val(nom);
     			 $("#cnpj").val(cnp);
     			 $("#dataInicio").val(datIni);
@@ -82,6 +83,8 @@
 			<div class="form-group">
 				<label>Nome</label>
 				<form:input rows="1" path="nome" cssClass="form-control" size="50%" id="nome"/>
+				<form:errors path="nome"/> 
+				<form:hidden  path="id" id="id"/>
 		   </div>
 		   <div class="form-group">
 					<label>CNPJ</label>
@@ -101,8 +104,8 @@
 			</div>
 					
 		<button type="submit" class="btn btn-primary" >Gravar</button>
-		<button type="button" class="btn btn-success">Atualizar</button>
-		<button type="button" class="btn btn-danger"> Excluir</button>	
+		<button type="submit" class="btn btn-success">Atualizar</button>
+		
 	</form:form>			
 </div>
 
@@ -117,6 +120,8 @@
         <th>CNPJ</th>
         <th>Data Início</th>
         <th>Data Fím</th>
+        <th>Ação</th>  
+        
       </tr>
     </thead>
     <tbody>
@@ -129,8 +134,10 @@
         <td><a href="javascript:popularcampos(${obra.id},'${obra.nome}','${obra.cnpj}','<fmt:formatDate value="${obra.dataInicio.time}" pattern="dd/MM/yyyy"/>','<fmt:formatDate value="${obra.dataFim.time}"   pattern="dd/MM/yyyy"/>');">${obra.cnpj}</a> </td>
         <td><a href="javascript:popularcampos(${obra.id},'${obra.nome}','${obra.cnpj}','<fmt:formatDate  value="${obra.dataInicio.time}" pattern="dd/MM/yyyy"/>','<fmt:formatDate value="${obra.dataFim.time}"  pattern="dd/MM/yyyy"/>');"><fmt:formatDate value="${obra.dataInicio.time}" pattern="dd/MM/yyyy"/></a> </td>
         <td><a href="javascript:popularcampos(${obra.id},'${obra.nome}','${obra.cnpj}','<fmt:formatDate  value="${obra.dataInicio.time}" pattern="dd/MM/yyyy"/>','<fmt:formatDate value="${obra.dataFim.time}"  pattern="dd/MM/yyyy"/>');"><fmt:formatDate value="${obra.dataFim.time}" pattern="dd/MM/yyyy"/></a></td>
-               
-        
+         
+           
+        <td> <a href="${s:mvcUrl('OC#excluir').arg(0,obra.id).build() }">Remover</a></td>
+       
       </tr>
      </c:forEach> 
           

@@ -2,6 +2,7 @@ package br.com.gerenciadorobra.models;
 
 import java.util.Calendar;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -9,11 +10,15 @@ import javax.persistence.Id;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import org.hibernate.validator.constraints.NotEmpty;
+
 @Entity
 public class Obra {
 
 	@Id @GeneratedValue(strategy=GenerationType.IDENTITY) 
 	private Integer id;
+	@NotEmpty(message = "Please enter your name")
+	@Column(name = "name")
 	private String nome;
 	private String cnpj;
 	
