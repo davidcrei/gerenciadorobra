@@ -17,7 +17,7 @@ public class Obra {
 
 	@Id @GeneratedValue(strategy=GenerationType.IDENTITY) 
 	private Integer id;
-	@NotEmpty(message = "Please enter your name")
+	
 	@Column(name = "name")
 	private String nome;
 	private String cnpj;

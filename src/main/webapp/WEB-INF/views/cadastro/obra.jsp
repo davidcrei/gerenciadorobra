@@ -81,14 +81,17 @@
 <div class="container">
 		<form:form action="${s:mvcUrl('OC#gravar').build()}" method="POST" commandName="obra" enctype="multipart/form-data">	
 			<div class="form-group">
+			
 				<label>Nome</label>
+							 
 				<form:input rows="1" path="nome" cssClass="form-control" size="50%" id="nome"/>
-				<form:errors path="nome"/> 
 				<form:hidden  path="id" id="id"/>
+				<font color="red"><form:errors path="nome" /></font>
 		   </div>
 		   <div class="form-group">
 					<label>CNPJ</label>
 					<form:input path="cnpj"  cssClass="form-control" size="50%"/>
+					<font color="red"><form:errors path="cnpj" title="cnpj" /></font>
 		    </div>
 	    
 	    	<div class="form-group row">

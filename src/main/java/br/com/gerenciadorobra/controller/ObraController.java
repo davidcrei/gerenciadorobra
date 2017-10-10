@@ -9,13 +9,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.BindingResultUtils;
+import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
-
+import org.springframework.web.bind.annotation.InitBinder;
 import br.com.gerenciadorobra.daos.ObraDao;
 import br.com.gerenciadorobra.models.Obra;
+import br.com.gerenciadorobra.validation.ObraValidation;
 
 @RequestMapping("/cadastro")
 @Controller
@@ -24,17 +26,20 @@ public class ObraController {
 	@Autowired
 	private ObraDao obraDao;
 
-
+    @InitBinder
+    public void InitBinder(WebDataBinder binder) {
+            binder.addValidators(new ObraValidation());
+    }
+	
 	@RequestMapping(value="/listar", method=RequestMethod.GET)
-	public ModelAndView listar(Integer paginaAtual) {
-		Obra obra = new Obra();
-		//obra.setNome("G2O");
+	public ModelAndView listar(Obra obra,Integer paginaAtual) {
+		
 
 		if(paginaAtual == null) {
 			paginaAtual = 1;
 		}
 
-		ArrayList<Integer> paginacao = listaPaginacao(obraDao); 
+		ArrayList<Integer> paginacao = listaPaginacao(); 
 		List<Obra> obras  = obraDao.findListaPaginada(paginaAtual);
 
 		ModelAndView modelAndView =  new ModelAndView("cadastro/obra");
@@ -48,24 +53,25 @@ public class ObraController {
 
 	@RequestMapping(value="/gravar", method=RequestMethod.POST)
 	public ModelAndView gravar(@Valid Obra obra, BindingResult result) {
-		//obra.setId(null);
-		ModelAndView modelAndView = listar(null);
+		ModelAndView modelAndView = listar(obra,null);
 		if(result.hasErrors()) {
 			return modelAndView;
 		}
 		obraDao.gravar(obra);
-		
 		return modelAndView;
 		
 	}
 
 		
 	@RequestMapping(value="/atualizar", method=RequestMethod.GET)
-	public ModelAndView atualizar(Obra obra) {
-
+	public ModelAndView atualizar(@Valid Obra obra, BindingResult result) {
+		ModelAndView modelAndView = listar(obra,null);
+		
+		if(result.hasErrors()) {
+			return modelAndView;
+		}
+		
 		obraDao.atualizar(obra);
-		ModelAndView modelAndView = listar(null);
-
 		return modelAndView;
 	}	
 	
@@ -74,12 +80,12 @@ public class ObraController {
 	public ModelAndView excluir(@PathVariable("id") Integer id) {
 		Obra obra = obraDao.buscaPorChavePrimaria(id);
 		obraDao.excluir(obra);
-		ModelAndView modelAndView =  listar(1);
+		ModelAndView modelAndView =  listar(obra,null);
 		return modelAndView;
 	}	
 	
 	
-	public ArrayList<Integer> listaPaginacao(ObraDao obraDao){
+	public ArrayList<Integer> listaPaginacao(){
 		List<Obra> listaObra = obraDao.findAll();
 		int numPag = listaObra.size() / 3;
 
@@ -88,7 +94,7 @@ public class ObraController {
 		}
 
 		ArrayList<Integer> listaPaginacao = new ArrayList<>();
-		for(int i=0;i <= numPag;i++) {
+		for(int i=0;i < numPag;i++) {
 			listaPaginacao.add(i+1); 
 		}
 		return  listaPaginacao;
