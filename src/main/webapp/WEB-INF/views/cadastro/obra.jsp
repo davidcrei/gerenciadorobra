@@ -159,7 +159,7 @@
 	    
 	    <c:forEach items="${listaPaginacao}" var="item">
 		   <li>
-		     <a href="${s:mvcUrl('OC#listar').arg(0,item).build() }">${item}</a>
+		     <a href="${s:mvcUrl('OC#listar').arg(1,item).build() }">${item}</a>
 		   </li>
 	    </c:forEach>
 	  
