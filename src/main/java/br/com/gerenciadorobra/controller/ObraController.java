@@ -22,7 +22,7 @@ import br.com.gerenciadorobra.validation.ObraValidation;
 @RequestMapping("/cadastro")
 @Controller
 public class ObraController {
-
+ public static final int qtdRegistros = 10;
 	@Autowired
 	private ObraDao obraDao;
 
@@ -59,6 +59,8 @@ public class ObraController {
 			return modelAndView;
 		}
 		obraDao.gravar(obra);
+		
+		modelAndView = listar( obra= new Obra(),null);
 		return modelAndView;
 		
 	}
@@ -88,12 +90,18 @@ public class ObraController {
 	
 	public ArrayList<Integer> listaPaginacao(){
 		List<Obra> listaObra = obraDao.findAll();
-		int numPag = listaObra.size() / 3;
-
-		if(numPag <= 0) {
-			numPag = 1;
-		}
-
+		int numPag = listaObra.size() / qtdRegistros;
+        int resto = listaObra.size() % qtdRegistros;
+		        
+        if(numPag <= 0) {
+        	numPag = 1;
+        }
+       
+        if(resto > 0 && (listaObra.size() > qtdRegistros)) {
+    		numPag += 1;
+    	}
+        
+        
 		ArrayList<Integer> listaPaginacao = new ArrayList<>();
 		for(int i=0;i < numPag;i++) {
 			listaPaginacao.add(i+1); 

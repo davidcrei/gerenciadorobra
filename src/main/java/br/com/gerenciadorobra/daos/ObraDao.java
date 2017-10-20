@@ -9,6 +9,7 @@ import javax.transaction.Transactional;
 
 import org.springframework.stereotype.Repository;
 
+import br.com.gerenciadorobra.controller.ObraController;
 import br.com.gerenciadorobra.models.Obra;
 
 @Repository
@@ -40,7 +41,7 @@ public class ObraDao {
 
 		StringBuilder sbQuery2 = new StringBuilder();
 		Query query = null;
-		int maxRecords = 3;
+		int maxRecords = ObraController.qtdRegistros;
 		int paginas = 0;
 		
 		if(count > maxRecords) {

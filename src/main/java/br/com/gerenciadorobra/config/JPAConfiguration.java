@@ -1,5 +1,6 @@
 package br.com.gerenciadorobra.config;
 
+import java.beans.PropertyVetoException;
 import java.util.Properties;
 
 import javax.persistence.EntityManagerFactory;
@@ -7,12 +8,13 @@ import javax.sql.DataSource;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Profile;
-import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.orm.jpa.JpaVendorAdapter;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
+
+import com.mchange.v2.c3p0.ComboPooledDataSource;
 
 
 @EnableTransactionManagement
@@ -45,12 +47,15 @@ public class JPAConfiguration {
 
 	@Bean
 	@Profile("dev")
-	public DataSource dataSource() {
-		DriverManagerDataSource dataSource = new DriverManagerDataSource();
-		dataSource.setUsername("root");
+	public DataSource dataSource() throws PropertyVetoException {
+		ComboPooledDataSource dataSource = new ComboPooledDataSource();
+		dataSource.setUser("root");
 		dataSource.setPassword("1234");
-		dataSource.setUrl("jdbc:mysql://localhost:3306/gerenciadorobra");
-		dataSource.setDriverClassName("com.mysql.jdbc.Driver");
+		dataSource.setJdbcUrl("jdbc:mysql://localhost:3306/gerenciadorobra");
+		dataSource.setDriverClass("com.mysql.jdbc.Driver");
+		
+		dataSource.setMinPoolSize(3);
+	    dataSource.setMaxPoolSize(10);
 		
 		return dataSource;
 	}

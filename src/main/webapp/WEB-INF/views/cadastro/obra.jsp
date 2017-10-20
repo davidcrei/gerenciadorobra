@@ -64,6 +64,12 @@
 </head>
 
 <script>
+
+$(document).ready(function(){
+	 $('#atualizar').attr('disabled', 'disabled'); 
+});
+		
+	
   function popularcampos(i,nom,cnp,datIni,datFim){
     		with (document.forms[0]) {
     			 $("#id").val(i);
@@ -71,9 +77,24 @@
     			 $("#cnpj").val(cnp);
     			 $("#dataInicio").val(datIni);
     			 $("#dataFim").val(datFim);
+    			 $('#gravar').attr('disabled', 'disabled'); 
+    			 $('#atualizar').removeAttr('disabled');
     		}
 
      }
+  
+  function limparcampos(){
+		with (document.forms[0]) {
+			 $("#id").val("");
+			 $("#nome").val("");
+			 $("#cnpj").val("");
+			 $("#dataInicio").val("");
+			 $("#dataFim").val("");
+			 $('#gravar').removeAttr('disabled');
+			 $('#atualizar').attr('disabled', 'disabled');
+		}
+
+}
   
 </script>
 <body>
@@ -106,8 +127,10 @@
 			</div>
 			</div>
 					
-		<button type="submit" class="btn btn-primary" >Gravar</button>
-		<button type="submit" class="btn btn-success">Atualizar</button>
+		<button type="submit" class="btn btn-primary" id="gravar" >Gravar</button>
+		<button type="submit" class="btn btn-success" id="atualizar">Atualizar</button>
+		 <a href="javascript:limparcampos();" class="btn btn-warning">Limpar</a>
+        
 		
 	</form:form>			
 </div>
@@ -133,14 +156,17 @@
             
       <tr>
        
-        <td><a href="javascript:popularcampos(${obra.id},'${obra.nome}','${obra.cnpj}','<fmt:formatDate  value="${obra.dataInicio.time}" pattern="dd/MM/yyyy"/>','<fmt:formatDate value="${obra.dataFim.time}"  pattern="dd/MM/yyyy"/>');"> ${obra.nome}</a> </td>
-        <td><a href="javascript:popularcampos(${obra.id},'${obra.nome}','${obra.cnpj}','<fmt:formatDate value="${obra.dataInicio.time}" pattern="dd/MM/yyyy"/>','<fmt:formatDate value="${obra.dataFim.time}"   pattern="dd/MM/yyyy"/>');">${obra.cnpj}</a> </td>
-        <td><a href="javascript:popularcampos(${obra.id},'${obra.nome}','${obra.cnpj}','<fmt:formatDate  value="${obra.dataInicio.time}" pattern="dd/MM/yyyy"/>','<fmt:formatDate value="${obra.dataFim.time}"  pattern="dd/MM/yyyy"/>');"><fmt:formatDate value="${obra.dataInicio.time}" pattern="dd/MM/yyyy"/></a> </td>
-        <td><a href="javascript:popularcampos(${obra.id},'${obra.nome}','${obra.cnpj}','<fmt:formatDate  value="${obra.dataInicio.time}" pattern="dd/MM/yyyy"/>','<fmt:formatDate value="${obra.dataFim.time}"  pattern="dd/MM/yyyy"/>');"><fmt:formatDate value="${obra.dataFim.time}" pattern="dd/MM/yyyy"/></a></td>
+        <td>${obra.nome} </td>
+        <td>${obra.cnpj} </td>
+        <td><fmt:formatDate value="${obra.dataInicio.time}" pattern="dd/MM/yyyy"/></td>
+        <td><fmt:formatDate value="${obra.dataFim.time}" pattern="dd/MM/yyyy"/></td>
          
            
-        <td> <a href="${s:mvcUrl('OC#excluir').arg(0,obra.id).build() }">Remover</a></td>
+        <td> <a href="${s:mvcUrl('OC#excluir').arg(0,obra.id).build() }"><span class="glyphicon glyphicon-remove"  aria-hidden="true"></span></a>
+        <a href="javascript:popularcampos(${obra.id},'${obra.nome}','${obra.cnpj}','<fmt:formatDate  value="${obra.dataInicio.time}" pattern="dd/MM/yyyy"/>','<fmt:formatDate value="${obra.dataFim.time}"  pattern="dd/MM/yyyy"/>');"><span class="glyphicon glyphicon-pencil"  aria-hidden="true"> </a>
+        </td>
        
+        
       </tr>
      </c:forEach> 
           
