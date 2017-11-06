@@ -19,7 +19,7 @@ import br.com.gerenciadorobra.daos.ObraDao;
 import br.com.gerenciadorobra.models.Obra;
 import br.com.gerenciadorobra.validation.ObraValidation;
 
-@RequestMapping("/cadastro")
+@RequestMapping("/obra")
 @Controller
 public class ObraController {
  public static final int qtdRegistros = 10;

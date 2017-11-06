@@ -3,6 +3,7 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://www.springframework.org/tags" prefix="s" %>
+<%@ taglib uri="http://www.springframework.org/security/tags" prefix="security" %>
 
 <html lang="en">
 <head>
@@ -28,7 +29,7 @@
       <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Cadastro <span class="caret"></span></a>
         <ul class="dropdown-menu">
           <li><a href="${s:mvcUrl('OC#listar').build()}" rel="nofollow">Obras</a></li>	
-          <li><a href="#">Funcionário</a></li>
+           <li><a href="${s:mvcUrl('FC#init').build()}" rel="nofollow">Funcionario</a></li>	
           <li><a href="#">Documentos</a></li>
         </ul>
       </li>
@@ -41,7 +42,17 @@
       </li>
       <li><a href="#">Documentos Digitalizados</a></li>
     </ul>
+    
+    <ul class="nav navbar-collapse navbar-nav navbar-right">
+    <li><a href="#">
+    <security:authentication property="principal" var="usuario"/>
+       ${usuario.nome}
+     </a>
+    </ul>
+  
+    
   </div>
+   
 </nav>
   
 </body>

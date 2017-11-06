@@ -7,7 +7,6 @@
         <html>
 <head>
     <meta charset="UTF-8">
-    <title>Livros de Java, Android, iPhone, Ruby, PHP e muito mais - Casa do Código</title>
     <c:url value="/resources/css" var="cssPath" />
     <link rel="stylesheet" href="${cssPath}/bootstrap.min.css" />
     <link rel="stylesheet" href="${cssPath}/bootstrap-theme.min.css" />
@@ -17,16 +16,12 @@
 	        }
 	 </style>
 	<meta charset="UTF-8">
-        <title>Livros de Java, Android, iPhone, Ruby, PHP e muito mais - Casa do Código</title>
-       
-			    </div><!-- /.navbar-collapse -->
-			  </div>
-			</nav>
+  
 	</head>
 <body>
 
  <div class="container">
- <h1>Login da CAsa do Codigo</h1>
+ <h1>Login CGObras</h1>
 <form:form servletRelativeAction="/login" method="post">
     <div class="form-group">
         <label>Email</label>

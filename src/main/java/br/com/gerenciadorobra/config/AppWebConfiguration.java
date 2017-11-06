@@ -35,12 +35,14 @@ import org.springframework.web.servlet.view.InternalResourceViewResolver;
 
 import com.google.common.cache.CacheBuilder;
 
+import br.com.gerenciadorobra.controller.FuncionarioController;
 import br.com.gerenciadorobra.controller.HomeController;
 import br.com.gerenciadorobra.controller.ObraController;
+import br.com.gerenciadorobra.daos.FuncionarioDao;
 import br.com.gerenciadorobra.daos.ObraDao;
 
 @EnableWebMvc
-@ComponentScan(basePackageClasses={HomeController.class,ObraDao.class,ObraController.class})
+@ComponentScan(basePackageClasses={HomeController.class,ObraDao.class,ObraController.class,FuncionarioController.class,FuncionarioDao.class})
 @EnableCaching
 public class AppWebConfiguration extends WebMvcConfigurerAdapter {
 

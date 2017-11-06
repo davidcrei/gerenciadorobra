@@ -6,6 +6,7 @@
 <%@ taglib tagdir="/WEB-INF/tags" prefix="tags" %>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
+<%@ taglib prefix="security" uri="http://www.springframework.org/security/tags"%>
  
  
  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
@@ -13,7 +14,7 @@
   
  
 <tags:pageTemplate
-	titulo="Livros de Java, Android, iOS, Mobile e muito mais...">
+	titulo="Cadastro de Obras">
 
 	<html>
 <head>
@@ -126,8 +127,17 @@ $(document).ready(function(){
 				
 			</div>
 			</div>
-					
+			
+		<div>
+		<label class="checkbox-inline"><input type="checkbox" value="">Documento 1</label>
+		<label class="checkbox-inline"><input type="checkbox" value="">Documento 2</label>
+		<label class="checkbox-inline"><input type="checkbox" value="">Documento 3</label>	
+		</div>
+  		<br/>
+		<security:authorize access="isAuthenticated()">			
 		<button type="submit" class="btn btn-primary" id="gravar" >Gravar</button>
+		</security:authorize>
+		
 		<button type="submit" class="btn btn-success" id="atualizar">Atualizar</button>
 		 <a href="javascript:limparcampos();" class="btn btn-warning">Limpar</a>
         
