@@ -1,14 +1,16 @@
 package br.com.gerenciadorobra.models;
 
-import java.util.List;
+import java.util.Calendar;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 @Entity
 public class Funcionario {
@@ -16,6 +18,10 @@ public class Funcionario {
 	private Integer id;
 	private String nome;
 	private String cpf;
+	
+	@Column(name="dataInicio",updatable=true,nullable=true)
+	@Temporal(TemporalType.TIMESTAMP )
+	private Calendar dataInicio;
 	
 	@OneToOne
 	private DocumentoDigitalizado documentoDigitalizado;
@@ -47,6 +53,12 @@ public class Funcionario {
 	}
 	public void setObra(Obra obra) {
 		this.obra = obra;
+	}
+	public Calendar getDataInicio() {
+		return dataInicio;
+	}
+	public void setDataInicio(Calendar dataInicio) {
+		this.dataInicio = dataInicio;
 	}
 
 	

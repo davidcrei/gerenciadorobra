@@ -38,11 +38,12 @@ import com.google.common.cache.CacheBuilder;
 import br.com.gerenciadorobra.controller.FuncionarioController;
 import br.com.gerenciadorobra.controller.HomeController;
 import br.com.gerenciadorobra.controller.ObraController;
+import br.com.gerenciadorobra.controller.TransferenciaController;
 import br.com.gerenciadorobra.daos.FuncionarioDao;
 import br.com.gerenciadorobra.daos.ObraDao;
 
 @EnableWebMvc
-@ComponentScan(basePackageClasses={HomeController.class,ObraDao.class,ObraController.class,FuncionarioController.class,FuncionarioDao.class})
+@ComponentScan(basePackageClasses={HomeController.class,ObraDao.class,ObraController.class,FuncionarioController.class,FuncionarioDao.class,TransferenciaController.class})
 @EnableCaching
 public class AppWebConfiguration extends WebMvcConfigurerAdapter {
 

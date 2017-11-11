@@ -35,7 +35,7 @@
       </li>
       <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Gerência <span class="caret"></span></a>
         <ul class="dropdown-menu">
-          <li><a href="#">Transferência de Funcionário</a></li>
+          <li><a href="${s:mvcUrl('TC#init').build()}">Transferência de Funcionário</a></li>
             <li><a href="#">Histórico</a></li>
          
         </ul>

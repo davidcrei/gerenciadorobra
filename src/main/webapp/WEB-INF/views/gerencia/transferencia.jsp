@@ -46,46 +46,10 @@
 
 <div class="container">
 		<form:form action="${s:mvcUrl('FC#gravar').build()}" method="POST" commandName="funcionario" enctype="multipart/form-data">	
-			<div class="form-group">
-			
-				<label>Nome</label>
+							<label>Nome</label>
 							 
-				<form:input rows="1" path="nome" cssClass="form-control" size="50%" id="nome"/>
-				<form:hidden  path="id" id="id"/>
-				<font color="red"><form:errors path="nome" /></font>
-		   </div>
-		  
-			<div class="form-group">
-					<label>CPF</label>
-					<form:input path="cpf"  cssClass="form-control" size="50%"/>
-					<font color="red"><form:errors path="cpf" title="cpf" /></font>
-		    </div>
-	 		
-	 		 <div class="form-group">
-		 		 <label>Obra</label>
-		 		 <select class="form-control">
-	  				<option>Via 1</option>
-	  				<option>G2O</option>
-	  				<option>Via 2</option>
-	  				<option>Odebreche</option>
-				 </select>
-			</div>
-			
-		<div class="form-group row">
-			 <div class="col-xs-2" >
-					<label for="dataInicio">Data Início</label>
-					<form:input  path="dataInicio"  cssClass="datepicker"/>
-			</div>
-	        
-			</div>
-			
-<form>
-  <div class="form-group">
-    <label for="exampleFormControlFile1"></label>
-    <input type="file" class="form-control-file" id="exampleFormControlFile1">
-  </div>
-</form>
-			
+				
+		
 
 		<security:authorize access="isAuthenticated()">			
 		<button type="submit" class="btn btn-primary" id="gravar" >Gravar</button>
