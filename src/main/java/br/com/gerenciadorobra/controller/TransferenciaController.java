@@ -9,15 +9,18 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import br.com.gerenciadorobra.models.Funcionario;
+import br.com.gerenciadorobra.models.Obra;
 
 @RequestMapping("/transferencia")
 @Controller
 public class TransferenciaController {
 
 	 @RequestMapping(value="/init", method=RequestMethod.GET)
-		public ModelAndView init() {
+		public ModelAndView init(Funcionario funcionario,Obra obra) {
 			ModelAndView modelAndView =  new ModelAndView("gerencia/transferencia");
-			//modelAndView.addObject("funcionario", funcionario);
+			modelAndView.addObject("funcionario", funcionario);
+			modelAndView.addObject("obra", obra);
+			
 			return modelAndView;
 		}
 	 
