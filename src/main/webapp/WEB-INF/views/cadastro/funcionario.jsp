@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://www.springframework.org/tags" prefix="s" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <%@ taglib tagdir="/WEB-INF/tags" prefix="tags" %>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
@@ -20,32 +20,15 @@
  	<link rel="stylesheet" href="${css}/datepicker.css">
 	
 	
-	<script>     
-     $(document).ready(function() {
-    	 $('.datepicker').datepicker({
-    		  dateFormat: 'dd/mm/yy',
-    		    dayNames: ['Domingo','Segunda','Terça','Quarta','Quinta','Sexta','Sábado'],
-    		    dayNamesMin: ['D','S','T','Q','Q','S','S','D'],
-    		    dayNamesShort: ['Dom','Seg','Ter','Qua','Qui','Sex','Sáb','Dom'],
-    		    monthNames: ['Janeiro','Fevereiro','Março','Abril','Maio','Junho','Julho','Agosto','Setembro','Outubro','Novembro','Dezembro'],
-    		    monthNamesShort: ['Jan','Fev','Mar','Abr','Mai','Jun','Jul','Ago','Set','Out','Nov','Dez'],
-    		    nextText: 'Próximo',
-    		    prevText: 'Anterior'
-    	});
-    	 
-    	 setaMascara(dataInicio,MASK_DATA); 
-    	 setaMascara(dataFim,MASK_DATA); 
-    		
-     });
-     
-     </script>
+	
 <title>Insert title here</title>
 </head>
 <body>
+	
 <tags:pageTemplate titulo="Cadastro de Funcionarios">
 
 <div class="container">
-		<form:form action="${s:mvcUrl('FC#gravar').build()}" method="POST" commandName="funcionario" enctype="multipart/form-data">	
+		<form:form action="${s:mvcUrl('FC#gravar').build()}" method="POST" commandName="funcionario" enctype="multipart/form-data">
 			<div class="form-group">
 			
 				<label>Nome</label>
@@ -63,11 +46,10 @@
 	 		
 	 		 <div class="form-group">
 		 		 <label>Obra</label>
-		 		 <select class="form-control">
-	  				<option>Via 1</option>
-	  				<option>G2O</option>
-	  				<option>Via 2</option>
-	  				<option>Odebreche</option>
+		 		 <select name="obra.id" class="form-control">
+	  				 <c:forEach items="${obras}" var="obra">
+	  				 <option value="${obra.id}" >${obra.nome}</option>
+	  				</c:forEach> 
 				 </select>
 			</div>
 			
@@ -79,12 +61,11 @@
 	        
 			</div>
 			
-<form>
   <div class="form-group">
     <label for="exampleFormControlFile1"></label>
     <input type="file" class="form-control-file" id="exampleFormControlFile1">
   </div>
-</form>
+
 			
 
 		<security:authorize access="isAuthenticated()">			

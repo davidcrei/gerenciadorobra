@@ -29,7 +29,7 @@
       <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Cadastro <span class="caret"></span></a>
         <ul class="dropdown-menu">
           <li><a href="${s:mvcUrl('OC#listar').build()}" rel="nofollow">Obras</a></li>	
-           <li><a href="${s:mvcUrl('FC#init').build()}" rel="nofollow">Funcionario</a></li>	
+           <li><a href="${s:mvcUrl('FC#inicio').build()}" rel="nofollow">Funcionario</a></li>	
           <li><a href="#">Documentos</a></li>
         </ul>
       </li>
