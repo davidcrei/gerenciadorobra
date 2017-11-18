@@ -27,29 +27,28 @@ public class FuncionarioController {
 	@Autowired
 	private ObraDao obraDao;
 	
-	 
+	   @InitBinder
 	    public void InitBinder(WebDataBinder binder) {
 	            binder.addValidators(new FuncionarioValidation());
 	    }
 	 
 	 @RequestMapping(value="/inicio", method=RequestMethod.GET)
-		public ModelAndView inicio(Funcionario funcionario,Obra obra) {
+		public ModelAndView inicio(Funcionario funcionario) {
 		 
 		    List<Obra> obras  = obraDao.findAll();  
 			ModelAndView modelAndView =  new ModelAndView("cadastro/funcionario");
 			modelAndView.addObject("funcionario", funcionario);
 			modelAndView.addObject("obras", obras);
-			modelAndView.addObject("obra", obra);
+			
 			
 			return modelAndView;
 		}
 	 
 	 @RequestMapping(value="/gravar", method=RequestMethod.POST)
-		public ModelAndView gravar(Funcionario funcionario,Obra obra, BindingResult result) {
+		public ModelAndView gravar(@Valid Funcionario funcionario, BindingResult result) {
 			
 		 ModelAndView modelAndView =  new ModelAndView("cadastro/funcionario");
 			modelAndView.addObject("funcionario", funcionario);
-			modelAndView.addObject("obra", obra);
 			if(result.hasErrors()) {
 				return modelAndView;
 			}
@@ -57,7 +56,7 @@ public class FuncionarioController {
 			//funcionario.setObra(obra);
 			funcionarioDao.gravar(funcionario);
 			
-			return modelAndView;
+			return modelAndView = inicio(funcionario);
 			
 		}
 	 

@@ -411,47 +411,13 @@ Mask.prototype.setDateKeyPress = function (_v, _d){
 
 function qEvent(e){
 	// routine for NS, Opera, etc DOM browsers
-	if( window.Event && isIE() == false ){
-		var isKeyPress = (e.type.substring(0,3) == "key");
-
-		this.keyCode = (isKeyPress) ? parseInt(e.which, 10) : 0;
-		this.button = (!isKeyPress) ? parseInt(e.which, 10) : 0;
-		this.srcElement = e.target;
-		this.type = e.type;
-		this.x = e.pageX;
-		this.y = e.pageY;
-		this.screenX = e.screenX;
-		this.screenY = e.screenY;
-		if( document.layers ){
-			this.altKey = ((e.modifiers & Event.ALT_MASK) > 0);
-			this.ctrlKey = ((e.modifiers & Event.CONTROL_MASK) > 0);
-			this.shiftKey = ((e.modifiers & Event.SHIFT_MASK) > 0);
-			this.keyCode = this.translateKeyCode(this.keyCode);
-		} else {
+	
 			this.altKey = e.altKey;
 			this.ctrlKey = e.ctrlKey;
 			this.shiftKey = e.shiftKey;
-		}
+		
 	// routine for Internet Explorer DOM browsers
-	} else {
-		e = window.event;
-		this.keyCode = parseInt(e.keyCode, 10);
-		this.button = e.button;
-		this.srcElement = e.srcElement;
-		this.type = e.type;
-		if( document.all ){
-			this.x = e.clientX + document.body.scrollLeft;
-			this.y = e.clientY + document.body.scrollTop;
-		} else {
-			this.x = e.clientX;
-			this.y = e.clientY;
-		}
-		this.screenX = e.screenX;
-		this.screenY = e.screenY;
-		this.altKey = e.altKey;
-		this.ctrlKey = e.ctrlKey;
-		this.shiftKey = e.shiftKey;
-	}
+	
 	if( this.button == 0 ){
 		this.setKeyPressed(this.keyCode);
 		this.keyChar = String.fromCharCode(this.keyCode);

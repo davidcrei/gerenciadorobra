@@ -18,6 +18,7 @@ public class FuncionarioValidation implements Validator{
 
 		ValidationUtils.rejectIfEmpty(errors, "nome", "field.required");
 		ValidationUtils.rejectIfEmpty(errors, "cpf", "field.required");
+		
 
 		Funcionario funcionario = (Funcionario) target;
 	}

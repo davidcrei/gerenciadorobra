@@ -7,9 +7,11 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <%@ taglib prefix="security" uri="http://www.springframework.org/security/tags"%>
  
- 
+
 
 <html>
+
+
 <head>
  <spring:url value="/resources/css" var="css"></spring:url>
     <spring:url value="/resources/js" var="js"></spring:url>
@@ -19,10 +21,62 @@
     <link href="${css}/bootstrap.min.css" rel="stylesheet" type="text/css">
  	<link rel="stylesheet" href="${css}/datepicker.css">
 	
+	<script src="${js}/maskUtils.js"></script>
+	<script src="${js}/jquery.maskedinput.js" type="text/javascript"></script>
 	
+	<script>
+	   
+	    jQuery(function($){
+	    	   $("#cpf").mask("999.999.999-99" , {reverse: true});
+	    	   
+	    	});
+	</script>
+	
+	
+		 <link rel="stylesheet" href="${css}/jquery-ui.css">
+		  <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+		  <script src="${js}/jquery-ui.js"></script>
+		  <script>
+		  jQuery(function($){
+		  		    
+		    $( "#datepicker" ).datepicker({
+		    		  dateFormat: 'dd/mm/yy',
+		    		    dayNames: ['Domingo','Segunda','Terça','Quarta','Quinta','Sexta','Sábado'],
+		    		    dayNamesMin: ['D','S','T','Q','Q','S','S','D'],
+		    		    dayNamesShort: ['Dom','Seg','Ter','Qua','Qui','Sex','Sáb','Dom'],
+		    		    monthNames: ['Janeiro','Fevereiro','Março','Abril','Maio','Junho','Julho','Agosto','Setembro','Outubro','Novembro','Dezembro'],
+		    		    monthNamesShort: ['Jan','Fev','Mar','Abr','Mai','Jun','Jul','Ago','Set','Out','Nov','Dez'],
+		    		    nextText: 'Próximo',
+		    		    prevText: 'Anterior'
+		    	});
+		  } );
+  </script>
 	
 <title>Insert title here</title>
 </head>
+
+<script>
+function limparcampos(){
+	with (document.forms[0]) {
+		 $("#nome").val("");
+		 $("#cpf").val("");
+		 $("#dataInicio").val("");
+		 $("#obra").val("");
+		 
+	}
+
+}
+
+function validaNumero(obj,evt) {
+	
+	var charCode = evt.keyCode;
+	if (charCode == 32) return false;
+	if (isNaN(String.fromCharCode(charCode))) return false;
+	return true;
+
+}
+</script>
+
 <body>
 	
 <tags:pageTemplate titulo="Cadastro de Funcionarios">
@@ -40,13 +94,14 @@
 		  
 			<div class="form-group">
 					<label>CPF</label>
-					<form:input path="cpf"  cssClass="form-control" size="50%"/>
+					<form:input path="cpf"  id="cpf" cssClass="form-control" size="50%" onkeypress="return validaNumero(this, event);" />
 					<font color="red"><form:errors path="cpf" title="cpf" /></font>
 		    </div>
 	 		
 	 		 <div class="form-group">
 		 		 <label>Obra</label>
-		 		 <select name="obra.id" class="form-control">
+		 		 <select name="obra.id" class="form-control" id="obra">
+	  				 <option value="" >Selecione</option>
 	  				 <c:forEach items="${obras}" var="obra">
 	  				 <option value="${obra.id}" >${obra.nome}</option>
 	  				</c:forEach> 
@@ -56,7 +111,7 @@
 		<div class="form-group row">
 			 <div class="col-xs-2" >
 					<label for="dataInicio">Data Início</label>
-					<form:input  path="dataInicio"  cssClass="datepicker"/>
+					<form:input  path="dataInicio"  cssClass="datepicker" id="datepicker"/>
 			</div>
 	        
 			</div>
