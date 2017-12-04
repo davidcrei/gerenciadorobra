@@ -55,7 +55,6 @@ public class FuncionarioController {
 			
 			//funcionario.setObra(obra);
 			funcionarioDao.gravar(funcionario);
-			
 			return modelAndView = inicio(funcionario);
 			
 		}
